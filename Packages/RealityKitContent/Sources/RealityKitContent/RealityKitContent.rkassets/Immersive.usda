@@ -1,0 +1,903 @@
+#usda 1.0
+(
+    defaultPrim = "Root"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Root"
+{
+    reorder nameChildren = ["Sphere_Left", "Sphere_Right", "GridMaterial", "poster", "MyWall", "EmptyEntityTest", "k6Material"]
+    def Sphere "Sphere_Right" (
+        active = false
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/GridMaterial/GridMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double radius = 0.1
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0.5, 1.5, -1.5)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Sphere "Sphere_Left" (
+        active = false
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/GridMaterial/GridMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double radius = 0.1
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (-0.5, 1.5, -1.5)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def "GridMaterial" (
+        active = true
+        references = @Materials/GridMaterial.usda@
+    )
+    {
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "GridMaterial"
+        {
+            float2 ui:nodegraph:realitykit:subgraphOutputs:size = (181.5, 99)
+
+            over "MaterialXPreviewSurface"
+            {
+                float2 ui:nodegraph:node:size = (207.5, 307)
+            }
+
+            over "Remap"
+            {
+                float2 ui:nodegraph:node:size = (94, 181)
+            }
+
+            over "Fractional"
+            {
+                float2 ui:nodegraph:node:size = (154.5, 109)
+            }
+
+            over "Multiply"
+            {
+                float2 ui:nodegraph:node:size = (60, 36)
+            }
+
+            over "Combine3"
+            {
+                float2 ui:nodegraph:node:size = (145, 54)
+            }
+
+            over "Subtract"
+            {
+                float2 ui:nodegraph:node:size = (61.5, 36)
+            }
+
+            over "Absval"
+            {
+                float2 ui:nodegraph:node:size = (121.5, 53)
+            }
+
+            over "BaseColor"
+            {
+                float2 ui:nodegraph:node:size = (151, 53)
+            }
+
+            over "LineColor"
+            {
+                float2 ui:nodegraph:node:size = (151, 53)
+            }
+
+            over "Texcoord"
+            {
+                float2 ui:nodegraph:node:size = (180.5, 53)
+            }
+
+            over "LineCounts"
+            {
+                float2 ui:nodegraph:node:size = (151.5, 53)
+            }
+
+            over "LineWidths"
+            {
+                float2 ui:nodegraph:node:size = (150, 53)
+            }
+
+            over "Separate2"
+            {
+                float2 ui:nodegraph:node:size = (115, 127)
+            }
+
+            over "Min"
+            {
+                float2 ui:nodegraph:node:size = (113, 40)
+            }
+
+            over "Range"
+            {
+                float2 ui:nodegraph:node:size = (98, 217)
+            }
+        }
+    }
+
+    def "poster" (
+        active = true
+        customData = {
+            float3 rotationEulerHint = (1.5707957, -3.5527137e-15, 1.0587913e-22)
+        }
+        references = @poster.usdc@
+    )
+    {
+        quatf xformOp:orient = (0.707107, 0.70710653, -1.2560743e-15, 1.2560735e-15)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0, 0, -0.5)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "Cube_018" (
+            customData = {
+                float3 rotationEulerHint = (0, 0, 0)
+            }
+        )
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "MyWall" (
+        active = true
+        customData = {
+            float3 rotationEulerHint = (-1.5707964, 0, 0)
+        }
+    )
+    {
+        reorder nameChildren = ["Vertex_Empty_1", "Vertex_Empty_0", "Vertex_Empty_10", "Vertex_Empty_11", "Vertex_Empty_12", "Vertex_Empty_13", "Vertex_Empty_14", "Vertex_Empty_15", "Vertex_Empty_16", "Vertex_Empty_17", "Vertex_Empty_18", "Vertex_Empty_19", "Vertex_Empty_2", "Vertex_Empty_20", "Vertex_Empty_21", "Vertex_Empty_22", "Vertex_Empty_23", "Vertex_Empty_24", "Vertex_Empty_25", "Vertex_Empty_26", "Vertex_Empty_27", "Vertex_Empty_28", "Vertex_Empty_29", "Vertex_Empty_3", "Vertex_Empty_30", "Vertex_Empty_31", "Vertex_Empty_32", "Vertex_Empty_33", "Vertex_Empty_34", "Vertex_Empty_35", "Vertex_Empty_36", "Vertex_Empty_37", "Vertex_Empty_38", "Vertex_Empty_39", "Vertex_Empty_4", "Vertex_Empty_40", "Vertex_Empty_41", "Vertex_Empty_42", "Vertex_Empty_43", "Vertex_Empty_44", "Vertex_Empty_45", "Vertex_Empty_46", "Vertex_Empty_47", "Vertex_Empty_48", "Vertex_Empty_49", "Vertex_Empty_5", "Vertex_Empty_50", "Vertex_Empty_51", "Vertex_Empty_52", "Vertex_Empty_53", "Vertex_Empty_54", "Vertex_Empty_55", "Vertex_Empty_56", "Vertex_Empty_57", "Vertex_Empty_58", "Vertex_Empty_59", "Vertex_Empty_6", "Vertex_Empty_60", "Vertex_Empty_61", "Vertex_Empty_62", "Vertex_Empty_63", "Vertex_Empty_64", "Vertex_Empty_65", "Vertex_Empty_66", "Vertex_Empty_67", "Vertex_Empty_68", "Vertex_Empty_69", "Vertex_Empty_7", "Vertex_Empty_70", "Vertex_Empty_71", "Vertex_Empty_72", "Vertex_Empty_73", "Vertex_Empty_74", "Vertex_Empty_75", "Vertex_Empty_76", "Vertex_Empty_77", "Vertex_Empty_78", "Vertex_Empty_79", "Vertex_Empty_8", "Vertex_Empty_9"]
+        quatf xformOp:orient = (0.70710677, -0.70710677, 0, 0)
+        float3 xformOp:translate = (0, 1, -2)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Xform "Vertex_Empty_1"
+        {
+            quatf xformOp:orient = (0.52023554, 0.5202354, -0.4789102, -0.47891027)
+            float3 xformOp:scale = (0.09999999, 0.09999999, 0.09999997)
+            matrix4d xformOp:transform = ( (0.008257987909018993, -0.09965845197439194, -3.1008455803060997e-9, 0), (3.1008455803060997e-9, -1.1935306076793495e-8, 0.10000001639127731, 0), (-0.09965845197439194, -0.00825799722224474, -6.2262501820953275e-9, 0), (2.040367364883423, -1.2311766147613525, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (2.0403674, -1.2311766, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_0"
+        {
+            quatf xformOp:orient = (0.5202357, 0.5202358, -0.47890997, -0.47890997)
+            float3 xformOp:scale = (0.10000002, 0.10000002, 0.10000002)
+            matrix4d xformOp:transform = ( (0.008258091285824776, -0.09965845197439194, -8.809898588424403e-9, 0), (-2.6082049853215494e-9, -2.257075060185798e-8, 0.10000001639127731, 0), (-0.09965845197439194, -0.00825810432434082, -1.6861697815784282e-8, 0), (2.040367603302002, -1.2311766147613525, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (2.0403676, -1.2311766, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_10"
+        {
+            quatf xformOp:orient = (0.60744274, 0.60744274, 0.36195767, 0.36195755)
+            float3 xformOp:scale = (0.10000001, 0.10000001, 0.10000001)
+            matrix4d xformOp:transform = ( (0.04759465903043747, 0.08794742822647095, -1.1556153367564548e-8, 0), (2.926410447301464e-9, -2.2079393868779107e-9, 0.10000001639127731, 0), (0.08794742822647095, -0.04759467393159866, -1.0837682751230204e-8, 0), (-1.7944482564926147, -0.2600720524787903, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (-1.7944483, -0.26007205, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_11"
+        {
+            quatf xformOp:orient = (0.6352582, 0.6352582, 0.3105592, 0.3105592)
+            float3 xformOp:scale = (0.09999999, 0.09999997, 0.09999999)
+            matrix4d xformOp:transform = ( (0.06142118200659752, 0.07891412824392319, 1.4892899358187606e-8, 0), (7.320031247814995e-9, -2.3096403012345945e-8, 0.10000000149011612, 0), (0.07891412824392319, -0.06142118200659752, -1.939424798536038e-8, 0), (-1.6101360321044922, 0.022039711475372314, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (-1.610136, 0.022039711, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_12"
+        {
+            quatf xformOp:orient = (0.65873414, 0.6587343, 0.25703925, 0.25703922)
+            float3 xformOp:scale = (0.09999999, 0.09999998, 0.1)
+            matrix4d xformOp:transform = ( (0.07357233017683029, 0.06772822886705399, 2.2019304157794295e-9, 0), (1.0054655774638377e-8, -2.9030019277342944e-8, 0.10000001639127731, 0), (0.06772822886705399, -0.07357235252857208, -3.209416732374848e-8, 0), (-1.3819026947021484, 0.26996755599975586, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (-1.3819027, 0.26996756, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_13"
+        {
+            quatf xformOp:orient = (0.6777105, 0.67771053, 0.20176344, 0.20176344)
+            float3 xformOp:scale = (0.10000001, 0.10000001, 0.10000001)
+            matrix4d xformOp:transform = ( (0.08371659368276596, 0.054694898426532745, 3.8547370850849916e-10, 0), (4.424943078618071e-9, -1.4994068209261968e-8, 0.10000001639127731, 0), (0.054694898426532745, -0.08371660113334656, -1.6196670671320135e-8, 0), (-1.1159751415252686, 0.4769475758075714, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (-1.1159751, 0.47694758, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_14"
+        {
+            quatf xformOp:orient = (0.69205725, 0.69205725, 0.14510946, 0.14510946)
+            float3 xformOp:scale = (0.1, 0.09999998, 0.1)
+            matrix4d xformOp:transform = ( (0.09157729893922806, 0.040169622749090195, 0, 0), (0, 9.47913303406267e-10, 0.10000000149011612, 0), (0.040169622749090195, -0.09157729893922806, 9.47913303406267e-10, 0), (-0.8196060657501221, 0.6373348236083984, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (-0.81960607, 0.6373348, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_15"
+        {
+            quatf xformOp:orient = (0.7016765, 0.70167667, 0.08746417, 0.08746418)
+            float3 xformOp:scale = (0.10000002, 0.10000002, 0.10000001)
+            matrix4d xformOp:transform = ( (0.09694000333547592, 0.02454862929880619, 2.0853085924699144e-9, 0), (2.0853085924699144e-9, -2.5609995901731963e-8, 0.10000001639127731, 0), (0.02454862929880619, -0.09694001823663712, -2.5609995901731963e-8, 0), (-0.5008811354637146, 0.7467535734176636, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (-0.50088114, 0.7467536, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_16"
+        {
+            quatf xformOp:orient = (0.7065028, 0.7065027, 0.029221438, 0.029221438)
+            float3 xformOp:scale = (0.099999994, 0.09999999, 0.09999999)
+            matrix4d xformOp:transform = ( (0.09965844452381134, 0.008258013054728508, -6.966935917063211e-10, 0), (-6.966935917063211e-10, 1.5162990862904735e-8, 0.10000000149011612, 0), (0.008258013054728508, -0.09965844452381134, 1.5162990862904735e-8, 0), (-0.16849283874034882, 0.802219569683075, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (-0.16849284, 0.80221957, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_17"
+        {
+            quatf xformOp:orient = (0.7065026, 0.70650285, -0.029220842, -0.029220842)
+            float3 xformOp:scale = (0.1, 0.099999994, 0.10000002)
+            matrix4d xformOp:transform = ( (0.09965845942497253, -0.008257841691374779, -2.631928008867135e-10, 0), (2.631928008867135e-10, -1.1406421585036242e-8, 0.10000001639127731, 0), (-0.008257841691374779, -0.09965847432613373, -1.1384649667434132e-8, 0), (0.16849151253700256, 0.802219808101654, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (0.16849151, 0.8022198, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_18"
+        {
+            quatf xformOp:orient = (0.70167655, 0.7016768, -0.087463595, -0.08746359)
+            float3 xformOp:scale = (0.100000024, 0.10000002, 0.10000004)
+            matrix4d xformOp:transform = ( (0.0969400480389595, -0.024548465386033058, 2.088227146757049e-9, 0), (-2.9324986449558166e-12, -4.756979699038766e-9, 0.10000001639127731, 0), (-0.024548465386033058, -0.0969400629401207, -5.017640969384729e-9, 0), (0.5008794069290161, 0.7467544674873352, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (0.5008794, 0.74675447, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_19"
+        {
+            quatf xformOp:orient = (0.6920574, 0.6920574, -0.14510883, -0.14510888)
+            float3 xformOp:scale = (0.10000001, 0.1, 0.09999998)
+            matrix4d xformOp:transform = ( (0.09157737344503403, -0.04016946256160736, -2.062491732957028e-9, 0), (2.062491732957028e-9, 2.544769506229727e-9, 0.10000000149011612, 0), (-0.04016946256160736, -0.09157736599445343, 3.4096854228948814e-9, 0), (0.8196051716804504, 0.637336015701294, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (0.8196052, 0.637336, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_2"
+        {
+            quatf xformOp:orient = (0.52023506, 0.5202351, 0.47891065, 0.4789107)
+            float3 xformOp:scale = (0.100000024, 0.100000024, 0.100000024)
+            matrix4d xformOp:transform = ( (0.008257834240794182, 0.09965847432613373, 1.1910747055310367e-8, 0), (-4.926271057748011e-10, -2.984522140536683e-8, 0.10000002384185791, 0), (0.09965847432613373, -0.0082578519359231, -1.8427103398721556e-8, 0), (-2.040364980697632, -1.2311785221099854, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (-2.040365, -1.2311785, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_20"
+        {
+            quatf xformOp:orient = (0.6777106, 0.67771065, -0.20176297, -0.20176299)
+            float3 xformOp:scale = (0.10000001, 0.10000002, 0.10000001)
+            matrix4d xformOp:transform = ( (0.08371668308973312, -0.0546947717666626, -4.039470535843748e-9, 0), (4.039470535843748e-9, -7.623937925416158e-9, 0.10000001639127731, 0), (-0.0546947717666626, -0.08371668308973312, -5.218735221745874e-9, 0), (1.1159743070602417, 0.47694945335388184, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (1.1159743, 0.47694945, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_21"
+        {
+            quatf xformOp:orient = (0.65873444, 0.6587345, -0.25703865, -0.25703865)
+            float3 xformOp:scale = (0.1, 0.09999999, 0.1)
+            matrix4d xformOp:transform = ( (0.07357244193553925, -0.06772810220718384, -3.0641402748443625e-9, 0), (-3.0641402748443625e-9, -8.350489189012933e-9, 0.10000000149011612, 0), (-0.06772810220718384, -0.07357244193553925, -8.350489189012933e-9, 0), (1.3819022178649902, 0.2699695825576782, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (1.3819022, 0.26996958, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_22"
+        {
+            quatf xformOp:orient = (0.6352585, 0.6352585, -0.31055865, -0.31055856)
+            float3 xformOp:scale = (0.10000002, 0.10000002, 0.10000002)
+            matrix4d xformOp:transform = ( (0.06142134219408035, -0.07891400903463364, 1.1275019140555287e-8, 0), (-3.870724629706501e-9, 1.470109256551666e-9, 0.10000001639127731, 0), (-0.07891400903463364, -0.06142134591937065, -5.934185587364027e-9, 0), (1.6101359128952026, 0.022042155265808105, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (1.6101359, 0.022042155, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_23"
+        {
+            quatf xformOp:orient = (0.60744303, 0.607443, -0.3619571, -0.36195713)
+            float3 xformOp:scale = (0.1, 0.09999996, 0.09999998)
+            matrix4d xformOp:transform = ( (0.0475948192179203, -0.08794733136892319, -3.620642674562191e-9, 0), (3.620642674562191e-9, -1.268013249955402e-9, 0.10000000149011612, 0), (-0.08794733136892319, -0.0475948192179203, 3.0468516598602946e-9, 0), (1.7944488525390625, -0.2600693106651306, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (1.7944489, -0.2600693, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_24"
+        {
+            quatf xformOp:orient = (0.5754781, 0.575478, -0.4108832, -0.41088328)
+            float3 xformOp:scale = (0.09999999, 0.09999997, 0.09999999)
+            matrix4d xformOp:transform = ( (0.03246999904513359, -0.0945817157626152, -3.4301166351724532e-9, 0), (3.4301166351724532e-9, -7.181543804080093e-9, 0.10000000149011612, 0), (-0.0945817157626152, -0.03247000277042389, -2.2834343305078164e-9, 0), (1.929814338684082, -0.568670928478241, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (1.9298143, -0.5686709, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_25"
+        {
+            quatf xformOp:orient = (0.53958225, 0.53958195, -0.4570023, -0.4570023)
+            float3 xformOp:scale = (0.099999964, 0.099999964, 0.099999964)
+            matrix4d xformOp:transform = ( (0.016459545120596886, -0.09863612055778503, 6.432320454052842e-9, 0), (-6.432320454052842e-9, 1.6615543385611886e-9, 0.10000000149011612, 0), (-0.09863612055778503, -0.016459546983242035, -9.234230269328236e-9, 0), (2.0125391483306885, -0.8953433632850647, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (2.0125391, -0.89534336, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_26"
+        {
+            quatf xformOp:orient = (0.5395821, 0.5395821, -0.4570024, -0.4570024)
+            float3 xformOp:scale = (0.09999997, 0.099999964, 0.09999997)
+            matrix4d xformOp:transform = ( (0.016459522768855095, -0.09863612055778503, 0, 0), (0, -1.8174838301021623e-9, 0.10000000149011612, 0), (-0.09863612055778503, -0.016459522768855095, -1.8174838301021623e-9, 0), (2.0125391483306885, -0.8953433632850647, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (2.0125391, -0.89534336, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_27"
+        {
+            quatf xformOp:orient = (0.57547796, 0.57547796, -0.41088337, -0.41088334)
+            float3 xformOp:scale = (0.09999998, 0.09999998, 0.09999999)
+            matrix4d xformOp:transform = ( (0.032469965517520905, -0.0945817306637764, -4.898110805839906e-9, 0), (-4.898110805839906e-9, -2.187587533342139e-8, 0.10000001639127731, 0), (-0.0945817306637764, -0.0324699804186821, -2.187587533342139e-8, 0), (1.929814100265503, -0.5686705708503723, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (1.9298141, -0.5686706, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_28"
+        {
+            quatf xformOp:orient = (0.607443, 0.607443, -0.36195728, -0.36195713)
+            float3 xformOp:scale = (0.10000002, 0.1, 0.10000002)
+            matrix4d xformOp:transform = ( (0.04759479686617851, -0.08794735372066498, 7.241285349124382e-9, 0), (-7.241285349124382e-9, -5.582879047949518e-9, 0.10000001639127731, 0), (-0.08794735372066498, -0.04759480804204941, -1.421261153211617e-8, 0), (1.7944488525390625, -0.2600693106651306, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (1.7944489, -0.2600693, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_29"
+        {
+            quatf xformOp:orient = (0.6352585, 0.6352586, -0.31055844, -0.31055844)
+            float3 xformOp:scale = (0.099999994, 0.099999994, 0.10000001)
+            matrix4d xformOp:transform = ( (0.06142137572169304, -0.07891397178173065, 8.429097697604249e-11, 0), (-7.488582198789118e-9, -1.0310649223299606e-8, 0.10000000149011612, 0), (-0.07891397178173065, -0.061421383172273636, -1.4012795368500974e-8, 0), (1.6101354360580444, 0.022042572498321533, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (1.6101354, 0.022042572, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_3"
+        {
+            quatf xformOp:orient = (0.520235, 0.520235, 0.4789108, 0.47891074)
+            float3 xformOp:scale = (0.100000024, 0.10000002, 0.100000024)
+            matrix4d xformOp:transform = ( (0.008257788605988026, 0.09965848177671432, -1.1910747055310367e-8, 0), (4.926242747060883e-10, -4.053226643208063e-9, 0.10000001639127731, 0), (0.09965848177671432, -0.008257804438471794, -1.5471348646656224e-8, 0), (-2.0403647422790527, -1.2311785221099854, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (-2.0403647, -1.2311785, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_30"
+        {
+            quatf xformOp:orient = (0.65873444, 0.6587345, -0.25703868, -0.25703865)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            matrix4d xformOp:transform = ( (0.07357244938611984, -0.06772810220718384, 8.622233482746822e-10, 0), (-6.990503731429953e-9, -5.286349580302385e-9, 0.10000000149011612, 0), (-0.06772810220718384, -0.07357244938611984, -8.350489189012933e-9, 0), (1.3819018602371216, 0.2699697017669678, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (1.3819019, 0.2699697, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_31"
+        {
+            quatf xformOp:orient = (0.6777106, 0.67771065, -0.20176302, -0.20176294)
+            float3 xformOp:scale = (0.09999998, 0.099999994, 0.09999998)
+            matrix4d xformOp:transform = ( (0.08371669054031372, -0.054694753140211105, 5.288272930670246e-9, 0), (-1.4909078416280863e-8, -1.4161012806823692e-8, 0.10000000149011612, 0), (-0.054694753140211105, -0.08371669054031372, -2.0174017123508747e-8, 0), (1.1159740686416626, 0.4769493341445923, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (1.1159741, 0.47694933, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_32"
+        {
+            quatf xformOp:orient = (0.6920573, 0.69205743, -0.14510886, -0.14510885)
+            float3 xformOp:scale = (0.10000001, 0.1, 0.1)
+            matrix4d xformOp:transform = ( (0.09157737344503403, -0.04016946256160736, -1.397173043926614e-9, 0), (-5.52215650984067e-9, -1.3090249773028972e-8, 0.10000000149011612, 0), (-0.04016946256160736, -0.09157736599445343, -1.3955165023560312e-8, 0), (0.8196050524711609, 0.6373358964920044, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (0.81960505, 0.6373359, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_33"
+        {
+            quatf xformOp:orient = (0.70167655, 0.7016768, -0.08746361, -0.087463595)
+            float3 xformOp:scale = (0.100000024, 0.1, 0.10000002)
+            matrix4d xformOp:transform = ( (0.0969400480389595, -0.024548469111323357, 1.0485118329128795e-9, 0), (-3.133806769639591e-9, -5.278303127909112e-9, 0.10000000149011612, 0), (-0.024548469111323357, -0.0969400480389595, -5.799627000868668e-9, 0), (0.5008793473243713, 0.7467542886734009, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (0.50087935, 0.7467543, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_34"
+        {
+            quatf xformOp:orient = (0.7065026, 0.70650285, -0.029220847, -0.029220829)
+            float3 xformOp:scale = (0.1, 0.099999994, 0.10000002)
+            matrix4d xformOp:transform = ( (0.09965845942497253, -0.008257841691374779, -1.7029347376684711e-10, 0), (-1.2230646495581254e-9, -2.8228990700540635e-8, 0.10000001639127731, 0), (-0.008257841691374779, -0.09965847432613373, -2.8272532759388014e-8, 0), (0.16849102079868317, 0.802219808101654, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (0.16849102, 0.8022198, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_35"
+        {
+            quatf xformOp:orient = (0.7065028, 0.7065027, 0.029221512, 0.029221512)
+            float3 xformOp:scale = (0.099999994, 0.09999999, 0.09999999)
+            matrix4d xformOp:transform = ( (0.09965844452381134, 0.008258034475147724, -6.966953680631605e-10, 0), (-6.966953680631605e-10, 1.4292122152426145e-8, 0.10000000149011612, 0), (0.008258034475147724, -0.09965844452381134, 1.4292122152426145e-8, 0), (-0.16849328577518463, 0.8022194504737854, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (-0.16849329, 0.80221945, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_36"
+        {
+            quatf xformOp:orient = (0.70167655, 0.7016766, 0.087464266, 0.087464236)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            matrix4d xformOp:transform = ( (0.09694000333547592, 0.024548644199967384, -1.0485041723740096e-9, 0), (3.1338143191561585e-9, -1.0705366371155378e-8, 0.10000000149011612, 0), (0.024548644199967384, -0.09694000333547592, -1.1226693352739403e-8, 0), (-0.5008810758590698, 0.7467533946037292, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (-0.5008811, 0.7467534, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_37"
+        {
+            quatf xformOp:orient = (0.6920573, 0.6920572, 0.14510953, 0.14510952)
+            float3 xformOp:scale = (0.09999999, 0.09999998, 0.09999999)
+            matrix4d xformOp:transform = ( (0.09157729148864746, 0.04016963765025139, -2.062491288867818e-9, 0), (2.062491288867818e-9, -1.646846436997862e-9, 0.10000000149011612, 0), (0.04016963765025139, -0.09157729148864746, -2.51176657251051e-9, 0), (-0.8196068406105042, 0.6373343467712402, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (-0.81960684, 0.63733435, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_38"
+        {
+            quatf xformOp:orient = (0.6777105, 0.67771053, 0.20176344, 0.20176344)
+            float3 xformOp:scale = (0.10000001, 0.10000001, 0.10000001)
+            matrix4d xformOp:transform = ( (0.08371659368276596, 0.054694898426532745, -1.6342610598130136e-9, 0), (6.44467812449534e-9, -1.3791463082668542e-8, 0.10000001639127731, 0), (0.054694898426532745, -0.08371660113334656, -1.6196670671320135e-8, 0), (-1.115975022315979, 0.47694745659828186, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (-1.115975, 0.47694746, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_39"
+        {
+            quatf xformOp:orient = (0.6587342, 0.65873426, 0.25703925, 0.25703928)
+            float3 xformOp:scale = (0.09999998, 0.099999994, 0.099999994)
+            matrix4d xformOp:transform = ( (0.07357233017683029, 0.06772822886705399, 3.926362790451776e-9, 0), (-3.926362790451776e-9, -1.6388716161941375e-8, 0.10000001639127731, 0), (0.06772822886705399, -0.07357235252857208, -1.332456811553584e-8, 0), (-1.3819026947021484, 0.2699674367904663, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (-1.3819027, 0.26996744, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_4"
+        {
+            quatf xformOp:orient = (0.5202357, 0.52023584, -0.47890997, -0.4789099)
+            float3 xformOp:scale = (0.10000002, 0.10000002, 0.10000002)
+            matrix4d xformOp:transform = ( (0.008258102461695671, -0.09965845197439194, -8.317256217083013e-9, 0), (-1.4518950486319682e-8, -2.355603534454076e-8, 0.10000001639127731, 0), (-0.09965845197439194, -0.00825811643153429, -2.926508635425762e-8, 0), (2.040367603302002, -1.2311766147613525, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (2.0403676, -1.2311766, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_40"
+        {
+            quatf xformOp:orient = (0.6352582, 0.6352581, 0.3105593, 0.31055924)
+            float3 xformOp:scale = (0.09999998, 0.09999999, 0.09999998)
+            matrix4d xformOp:transform = ( (0.061421193182468414, 0.078914113342762, 0, 0), (0, -5.463569041630478e-10, 0.10000000149011612, 0), (0.078914113342762, -0.061421193182468414, -5.463569041630478e-10, 0), (-1.610135793685913, 0.02203965187072754, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (-1.6101358, 0.022039652, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_41"
+        {
+            quatf xformOp:orient = (0.6074426, 0.6074427, 0.36195776, 0.36195776)
+            float3 xformOp:scale = (0.1, 0.10000002, 0.10000001)
+            matrix4d xformOp:transform = ( (0.04759463667869568, 0.08794743567705154, 7.93551357958222e-9, 0), (6.942318941938197e-10, -1.9467426781716313e-8, 0.10000001639127731, 0), (0.08794743567705154, -0.047594647854566574, -1.5152556542830098e-8, 0), (-1.7944482564926147, -0.2600720524787903, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (-1.7944483, -0.26007205, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_42"
+        {
+            quatf xformOp:orient = (0.5754778, 0.5754777, 0.41088364, 0.41088364)
+            float3 xformOp:scale = (0.09999998, 0.10000001, 0.09999999)
+            matrix4d xformOp:transform = ( (0.032469846308231354, 0.09458176791667938, 0, 0), (0, -1.2050914044436922e-8, 0.10000001639127731, 0), (0.09458176791667938, -0.03246985748410225, -1.2050914044436922e-8, 0), (-1.9298129081726074, -0.5686736702919006, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (-1.9298129, -0.5686737, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_43"
+        {
+            quatf xformOp:orient = (0.53958166, 0.53958166, 0.4570029, 0.45700285)
+            float3 xformOp:scale = (0.10000002, 0.1, 0.10000002)
+            matrix4d xformOp:transform = ( (0.016459347680211067, 0.09863615781068802, -1.1880213257597916e-8, 0), (9.844161041883126e-10, 6.5165184359727846e-9, 0.10000000149011612, 0), (0.09863615781068802, -0.016459353268146515, -4.379280049704448e-9, 0), (-2.0125374794006348, -0.8953459858894348, 0.9449999332427979, 1) )
+            float3 xformOp:translate = (-2.0125375, -0.895346, 0.94499993)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_44"
+        {
+            quatf xformOp:orient = (0.5395822, 0.53958213, -0.45700228, -0.45700222)
+            float3 xformOp:scale = (0.09999996, 0.09999996, 0.09999996)
+            matrix4d xformOp:transform = ( (0.01645958237349987, -0.09863611310720444, -7.679622271439257e-9, 0), (-1.41119427254921e-8, -7.724055173241595e-9, 0.10000000149011612, 0), (-0.09863611310720444, -0.01645958051085472, -1.317194620042983e-8, 0), (2.0125391483306885, -0.8953433632850647, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (2.0125391, -0.89534336, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_45"
+        {
+            quatf xformOp:orient = (0.5754781, 0.5754781, -0.4108832, -0.4108832)
+            float3 xformOp:scale = (0.09999998, 0.09999998, 0.09999998)
+            matrix4d xformOp:transform = ( (0.03247000277042389, -0.0945817083120346, 0, 0), (0, -2.2834343305078164e-9, 0.10000000149011612, 0), (-0.0945817083120346, -0.03247000649571419, -2.2834343305078164e-9, 0), (1.9298142194747925, -0.5686705708503723, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (1.9298142, -0.5686706, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_46"
+        {
+            quatf xformOp:orient = (0.607443, 0.607443, -0.36195728, -0.36195713)
+            float3 xformOp:scale = (0.10000002, 0.1, 0.10000002)
+            matrix4d xformOp:transform = ( (0.04759479686617851, -0.08794735372066498, 7.241285349124382e-9, 0), (-7.241285349124382e-9, -5.582879047949518e-9, 0.10000001639127731, 0), (-0.08794735372066498, -0.04759480804204941, -1.421261153211617e-8, 0), (1.7944488525390625, -0.2600693106651306, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (1.7944489, -0.2600693, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_47"
+        {
+            quatf xformOp:orient = (0.6352585, 0.6352585, -0.31055856, -0.31055856)
+            float3 xformOp:scale = (0.09999999, 0.099999994, 0.10000001)
+            matrix4d xformOp:transform = ( (0.06142135336995125, -0.07891399413347244, 0, 0), (0, -9.973487813397242e-9, 0.10000001639127731, 0), (-0.07891399413347244, -0.061421364545822144, -9.973487813397242e-9, 0), (1.610135555267334, 0.02204263210296631, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (1.6101356, 0.022042632, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_48"
+        {
+            quatf xformOp:orient = (0.65873444, 0.6587345, -0.25703865, -0.25703868)
+            float3 xformOp:scale = (0.1, 0.10000002, 0.1)
+            matrix4d xformOp:transform = ( (0.07357244938611984, -0.06772810220718384, -3.926363678630196e-9, 0), (3.926363678630196e-9, -8.350489189012933e-9, 0.10000001639127731, 0), (-0.06772810220718384, -0.07357244938611984, -5.286349580302385e-9, 0), (1.3819018602371216, 0.2699698209762573, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (1.3819019, 0.26996982, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_49"
+        {
+            quatf xformOp:orient = (0.6777106, 0.67771065, -0.20176297, -0.20176299)
+            float3 xformOp:scale = (0.10000001, 0.10000002, 0.10000001)
+            matrix4d xformOp:transform = ( (0.08371668308973312, -0.0546947717666626, -4.039470535843748e-9, 0), (4.039470535843748e-9, -7.623937925416158e-9, 0.10000001639127731, 0), (-0.0546947717666626, -0.08371668308973312, -5.218735221745874e-9, 0), (1.1159743070602417, 0.47694942355155945, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (1.1159743, 0.47694942, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_5"
+        {
+            quatf xformOp:orient = (0.5202357, 0.52023554, -0.4789101, -0.47891006)
+            float3 xformOp:scale = (0.09999999, 0.1, 0.099999994)
+            matrix4d xformOp:transform = ( (0.008258051238954067, -0.09965845197439194, 1.2403385873938078e-8, 0), (-1.2403385873938078e-8, -3.4730263109850057e-9, 0.10000001639127731, 0), (-0.09965845197439194, -0.008258066140115261, -2.6309241007993478e-8, 0), (2.040367364883423, -1.2311766147613525, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (2.0403674, -1.2311766, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_50"
+        {
+            quatf xformOp:orient = (0.6920574, 0.6920574, -0.14510883, -0.14510883)
+            float3 xformOp:scale = (0.1, 0.09999997, 0.1)
+            matrix4d xformOp:transform = ( (0.09157737344503403, -0.04016945883631706, 0, 0), (0, 4.274601561604641e-9, 0.09999999403953552, 0), (-0.04016945883631706, -0.09157737344503403, 4.274601561604641e-9, 0), (0.8196050524711609, 0.637336015701294, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (0.81960505, 0.637336, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_51"
+        {
+            quatf xformOp:orient = (0.70167655, 0.7016768, -0.08746358, -0.08746358)
+            float3 xformOp:scale = (0.100000024, 0.1, 0.10000003)
+            matrix4d xformOp:transform = ( (0.0969400480389595, -0.02454845979809761, 2.091159467809689e-9, 0), (-2.091159467809689e-9, -3.974994111644037e-9, 0.10000000149011612, 0), (-0.02454845979809761, -0.0969400554895401, -4.496317540514383e-9, 0), (0.5008794069290161, 0.7467544078826904, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (0.5008794, 0.7467544, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_52"
+        {
+            quatf xformOp:orient = (0.70650274, 0.70650274, -0.029220827, -0.029220821)
+            float3 xformOp:scale = (0.09999998, 0.09999998, 0.09999998)
+            matrix4d xformOp:transform = ( (0.09965845942497253, -0.008257835172116756, -8.51464662665613e-11, 0), (-6.115320472233066e-10, -1.112339553799302e-8, 0.10000000149011612, 0), (-0.008257835172116756, -0.09965845942497253, -1.1145167455595129e-8, 0), (0.16849102079868317, 0.8022198677062988, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (0.16849102, 0.80221987, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_53"
+        {
+            quatf xformOp:orient = (0.70650274, 0.70650274, 0.0292215, 0.029221483)
+            float3 xformOp:scale = (0.1, 0.10000002, 0.10000002)
+            matrix4d xformOp:transform = ( (0.09965844452381134, 0.008258027955889702, -8.515459865021668e-11, 0), (-6.115401518513863e-10, -2.2691819534514934e-9, 0.10000001639127731, 0), (0.008258027955889702, -0.09965845197439194, -2.2474100358493843e-9, 0), (-0.16849331557750702, 0.8022195100784302, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (-0.16849332, 0.8022195, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_54"
+        {
+            quatf xformOp:orient = (0.7016765, 0.70167667, 0.087464206, 0.087464206)
+            float3 xformOp:scale = (0.1, 0.10000002, 0.10000001)
+            matrix4d xformOp:transform = ( (0.09694000333547592, 0.02454863302409649, 2.0853090365591243e-9, 0), (2.0853090365591243e-9, -2.6131322883315988e-8, 0.10000001639127731, 0), (0.02454863302409649, -0.09694001823663712, -2.6131322883315988e-8, 0), (-0.5008810758590698, 0.7467535138130188, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (-0.5008811, 0.7467535, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_55"
+        {
+            quatf xformOp:orient = (0.6920572, 0.69205725, 0.14510958, 0.14510961)
+            float3 xformOp:scale = (0.1, 0.099999994, 0.1)
+            matrix4d xformOp:transform = ( (0.09157728403806686, 0.040169648826122284, 4.124982577735636e-9, 0), (-4.124982577735636e-9, -5.106527645182268e-9, 0.10000000149011612, 0), (0.040169648826122284, -0.09157729148864746, -3.3766867080231577e-9, 0), (-0.8196069598197937, 0.6373344659805298, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (-0.81960696, 0.63733447, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_56"
+        {
+            quatf xformOp:orient = (0.6777105, 0.6777105, 0.20176351, 0.20176347)
+            float3 xformOp:scale = (0.1, 0.10000001, 0.1)
+            matrix4d xformOp:transform = ( (0.08371659368276596, 0.054694902151823044, 2.405208476830012e-9, 0), (2.405208476830012e-9, -1.6196670671320135e-8, 0.10000001639127731, 0), (0.054694902151823044, -0.08371660113334656, -1.6196670671320135e-8, 0), (-1.115975022315979, 0.47694751620292664, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (-1.115975, 0.47694752, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_57"
+        {
+            quatf xformOp:orient = (0.6587342, 0.65873426, 0.25703925, 0.25703928)
+            float3 xformOp:scale = (0.09999998, 0.099999964, 0.09999998)
+            matrix4d xformOp:transform = ( (0.07357233017683029, 0.06772822886705399, 2.201931526002454e-9, 0), (1.0054655774638377e-8, -1.6388716161941375e-8, 0.10000000149011612, 0), (0.06772822886705399, -0.07357233017683029, -1.945286065563323e-8, 0), (-1.3819026947021484, 0.2699674963951111, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (-1.3819027, 0.2699675, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_58"
+        {
+            quatf xformOp:orient = (0.6352582, 0.63525814, 0.31055918, 0.31055918)
+            float3 xformOp:scale = (0.09999999, 0.09999998, 0.1)
+            matrix4d xformOp:transform = ( (0.06142118200659752, 0.07891412079334259, -3.870713083387045e-9, 0), (1.1275022693268966e-8, -5.463569041630478e-10, 0.09999999403953552, 0), (0.07891412079334259, -0.06142118200659752, -7.950666791600725e-9, 0), (-1.610135793685913, 0.022039711475372314, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (-1.6101358, 0.022039711, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_59"
+        {
+            quatf xformOp:orient = (0.6074427, 0.6074426, 0.36195773, 0.36195773)
+            float3 xformOp:scale = (0.1, 0.1, 0.099999994)
+            matrix4d xformOp:transform = ( (0.04759465530514717, 0.08794742822647095, -3.6206408982053517e-9, 0), (3.6206408982053517e-9, -6.52281073598715e-9, 0.10000001639127731, 0), (0.08794742822647095, -0.04759466275572777, -1.0837682751230204e-8, 0), (-1.7944482564926147, -0.2600720524787903, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (-1.7944483, -0.26007205, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_6"
+        {
+            quatf xformOp:orient = (0.52023494, 0.520235, 0.4789108, 0.47891086)
+            float3 xformOp:scale = (0.100000024, 0.100000046, 0.10000003)
+            matrix4d xformOp:transform = ( (0.008257776498794556, 0.09965847432613373, 5.709061667857895e-9, 0), (5.709061667857895e-9, -1.5471348646656224e-8, 0.10000001639127731, 0), (0.09965847432613373, -0.008257786743342876, -1.5471348646656224e-8, 0), (-2.0403647422790527, -1.2311785221099854, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (-2.0403647, -1.2311785, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_60"
+        {
+            quatf xformOp:orient = (0.57547754, 0.5754778, 0.4108837, 0.4108837)
+            float3 xformOp:scale = (0.100000024, 0.10000003, 0.10000004)
+            matrix4d xformOp:transform = ( (0.03246985003352165, 0.09458177536725998, 1.4679998328048782e-9, 0), (8.328229661458408e-9, -2.0873258677056583e-8, 0.10000001639127731, 0), (0.09458177536725998, -0.032469864934682846, -2.5771374367877797e-8, 0), (-1.9298131465911865, -0.5686735510826111, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (-1.9298131, -0.56867355, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_61"
+        {
+            quatf xformOp:orient = (0.5395816, 0.53958184, 0.45700288, 0.4570028)
+            float3 xformOp:scale = (0.100000024, 0.10000002, 0.10000002)
+            matrix4d xformOp:transform = ( (0.01645934395492077, 0.09863615781068802, 2.2317416803474543e-9, 0), (8.664057027374383e-9, -1.1796010390696665e-8, 0.10000001639127731, 0), (0.09863615781068802, -0.016459351405501366, -1.7243911187847516e-8, 0), (-2.0125374794006348, -0.8953459858894348, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (-2.0125375, -0.895346, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_62"
+        {
+            quatf xformOp:orient = (0.53958225, 0.5395821, -0.45700237, -0.4570022)
+            float3 xformOp:scale = (0.099999964, 0.099999964, 0.09999997)
+            matrix4d xformOp:transform = ( (0.01645956002175808, -0.09863611310720444, 4.200589209801819e-9, 0), (-1.5096373928713547e-8, -3.0730354372288105e-10, 0.10000000149011612, 0), (-0.09863611310720444, -0.01645956188440323, -1.6650979262067267e-8, 0), (2.0125391483306885, -0.8953433632850647, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (2.0125391, -0.89534336, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_63"
+        {
+            quatf xformOp:orient = (0.57547796, 0.575478, -0.41088334, -0.41088322)
+            float3 xformOp:scale = (0.10000001, 0.099999994, 0.10000001)
+            matrix4d xformOp:transform = ( (0.0324699692428112, -0.0945817232131958, -1.4679940596451502e-9, 0), (-8.32822699692315e-9, -1.6977763195313855e-8, 0.10000001639127731, 0), (-0.0945817232131958, -0.0324699841439724, -2.187587533342139e-8, 0), (1.929814100265503, -0.5686705708503723, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (1.9298141, -0.5686706, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_64"
+        {
+            quatf xformOp:orient = (0.607443, 0.607443, -0.36195728, -0.36195713)
+            float3 xformOp:scale = (0.10000001, 0.10000001, 0.10000002)
+            matrix4d xformOp:transform = ( (0.04759480059146881, -0.08794734627008438, 1.0861927357552759e-8, 0), (-1.0861927357552759e-8, -1.268013249955402e-9, 0.10000001639127731, 0), (-0.08794734627008438, -0.047594811767339706, -1.421261153211617e-8, 0), (1.7944488525390625, -0.2600693106651306, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (1.7944489, -0.2600693, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_65"
+        {
+            quatf xformOp:orient = (0.6352586, 0.6352585, -0.31055844, -0.31055844)
+            float3 xformOp:scale = (0.09999998, 0.09999998, 0.09999999)
+            matrix4d xformOp:transform = ( (0.061421364545822144, -0.07891397923231125, -3.7864360535877495e-9, 0), (3.7864360535877495e-9, -6.2713412241066635e-9, 0.10000000149011612, 0), (-0.07891397923231125, -0.06142137199640274, -2.5691953009499002e-9, 0), (1.610135555267334, 0.022042572498321533, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (1.6101356, 0.022042572, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_66"
+        {
+            quatf xformOp:orient = (0.65873456, 0.65873426, -0.25703874, -0.25703874)
+            float3 xformOp:scale = (0.099999964, 0.099999964, 0.09999997)
+            matrix4d xformOp:transform = ( (0.07357244193553925, -0.06772810965776443, 8.622230152077748e-10, 0), (-6.990504175519163e-9, -8.350489189012933e-9, 0.10000000149011612, 0), (-0.06772810965776443, -0.07357244193553925, -1.141463012999111e-8, 0), (1.3819018602371216, 0.26996976137161255, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (1.3819019, 0.26996976, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_67"
+        {
+            quatf xformOp:orient = (0.67771053, 0.6777107, -0.201763, -0.201763)
+            float3 xformOp:scale = (0.10000001, 0.10000002, 0.10000001)
+            matrix4d xformOp:transform = ( (0.08371667563915253, -0.054694779217243195, -4.810405407340568e-9, 0), (-4.810405407340568e-9, -2.4984421642670895e-8, 0.10000001639127731, 0), (-0.054694779217243195, -0.08371668308973312, -2.4984421642670895e-8, 0), (1.1159743070602417, 0.47694939374923706, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (1.1159743, 0.4769494, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_68"
+        {
+            quatf xformOp:orient = (0.6920573, 0.69205743, -0.14510886, -0.14510885)
+            float3 xformOp:scale = (0.10000001, 0.1, 0.1)
+            matrix4d xformOp:transform = ( (0.09157737344503403, -0.04016946256160736, -1.397173043926614e-9, 0), (-5.52215650984067e-9, -1.3090249773028972e-8, 0.10000000149011612, 0), (-0.04016946256160736, -0.09157736599445343, -1.3955165023560312e-8, 0), (0.8196050524711609, 0.6373359560966492, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (0.81960505, 0.63733596, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_69"
+        {
+            quatf xformOp:orient = (0.70167655, 0.7016768, -0.08746361, -0.087463595)
+            float3 xformOp:scale = (0.100000024, 0.1, 0.10000002)
+            matrix4d xformOp:transform = ( (0.0969400480389595, -0.024548469111323357, 2.094091788862329e-9, 0), (-4.179386614566738e-9, -5.017640969384729e-9, 0.10000000149011612, 0), (-0.024548469111323357, -0.0969400480389595, -5.799627000868668e-9, 0), (0.5008794069290161, 0.7467543482780457, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (0.5008794, 0.74675435, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_7"
+        {
+            quatf xformOp:orient = (0.520235, 0.52023506, 0.4789108, 0.47891068)
+            float3 xformOp:scale = (0.10000003, 0.10000002, 0.10000003)
+            matrix4d xformOp:transform = ( (0.008257799781858921, 0.09965848177671432, -1.2403371663083362e-8, 0), (1.2403371663083362e-8, -5.0384763028432644e-9, 0.10000001639127731, 0), (0.09965848177671432, -0.008257816545665264, -2.7874719421561167e-8, 0), (-2.040364980697632, -1.2311785221099854, -0.3149999976158142, 1) )
+            float3 xformOp:translate = (-2.040365, -1.2311785, -0.315)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_70"
+        {
+            quatf xformOp:orient = (0.7065026, 0.70650285, -0.02922083, -0.029220818)
+            float3 xformOp:scale = (0.09999998, 0.099999994, 0.099999994)
+            matrix4d xformOp:transform = ( (0.09965845942497253, -0.00825783796608448, 3.5609246107348724e-10, 0), (-1.7494500292869475e-9, -2.805481891243744e-8, 0.10000001639127731, 0), (-0.00825783796608448, -0.09965847432613373, -2.8141906582845877e-8, 0), (0.16849102079868317, 0.802219808101654, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (0.16849102, 0.8022198, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_71"
+        {
+            quatf xformOp:orient = (0.70650274, 0.70650274, 0.02922152, 0.029221509)
+            float3 xformOp:scale = (0.1, 0.10000002, 0.10000002)
+            matrix4d xformOp:transform = ( (0.09965844452381134, 0.008258034475147724, -8.515488314486674e-11, 0), (-6.115404849182937e-10, -2.5522142177436535e-9, 0.10000001639127731, 0), (0.008258034475147724, -0.09965845197439194, -2.5304423001415444e-9, 0), (-0.16849331557750702, 0.8022195100784302, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (-0.16849332, 0.8022195, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_72"
+        {
+            quatf xformOp:orient = (0.70167655, 0.7016766, 0.087464236, 0.087464236)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            matrix4d xformOp:transform = ( (0.09694000333547592, 0.024548640474677086, -2.924682848334803e-12, 0), (2.0882344742290115e-9, -1.0444701992184946e-8, 0.10000000149011612, 0), (0.024548640474677086, -0.09694000333547592, -1.0705366371155378e-8, 0), (-0.5008810758590698, 0.746753454208374, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (-0.5008811, 0.74675345, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_73"
+        {
+            quatf xformOp:orient = (0.69205713, 0.6920574, 0.14510958, 0.14510958)
+            float3 xformOp:scale = (0.1, 0.10000002, 0.10000001)
+            matrix4d xformOp:transform = ( (0.09157728403806686, 0.04016965255141258, 3.459682096362826e-9, 0), (3.459682096362826e-9, -2.247137942390509e-8, 0.10000001639127731, 0), (0.04016965255141258, -0.09157729148864746, -2.247137942390509e-8, 0), (-0.8196069598197937, 0.637334406375885, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (-0.81960696, 0.6373344, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_74"
+        {
+            quatf xformOp:orient = (0.6777105, 0.67771053, 0.20176344, 0.20176344)
+            float3 xformOp:scale = (0.10000001, 0.10000001, 0.10000001)
+            matrix4d xformOp:transform = ( (0.08371659368276596, 0.054694898426532745, -1.6342610598130136e-9, 0), (6.44467812449534e-9, -1.3791463082668542e-8, 0.10000001639127731, 0), (0.054694898426532745, -0.08371660113334656, -1.6196670671320135e-8, 0), (-1.115975022315979, 0.47694748640060425, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (-1.115975, 0.4769475, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_75"
+        {
+            quatf xformOp:orient = (0.65873426, 0.65873426, 0.25703922, 0.25703925)
+            float3 xformOp:scale = (0.1, 0.09999998, 0.1)
+            matrix4d xformOp:transform = ( (0.07357233017683029, 0.06772822141647339, 3.926362346362566e-9, 0), (-3.926362346362566e-9, -6.832650556454212e-10, 0.10000000149011612, 0), (0.06772822141647339, -0.07357233017683029, 2.3808814919590304e-9, 0), (-1.3819026947021484, 0.2699674367904663, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (-1.3819027, 0.26996744, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_76"
+        {
+            quatf xformOp:orient = (0.6352582, 0.6352581, 0.3105593, 0.31055924)
+            float3 xformOp:scale = (0.09999998, 0.09999999, 0.09999998)
+            matrix4d xformOp:transform = ( (0.061421193182468414, 0.078914113342762, 0, 0), (0, -5.463569041630478e-10, 0.10000000149011612, 0), (0.078914113342762, -0.061421193182468414, -5.463569041630478e-10, 0), (-1.610135793685913, 0.02203965187072754, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (-1.6101358, 0.022039652, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_77"
+        {
+            quatf xformOp:orient = (0.6074426, 0.6074427, 0.36195776, 0.36195776)
+            float3 xformOp:scale = (0.10000001, 0.10000002, 0.10000001)
+            matrix4d xformOp:transform = ( (0.04759464040398598, 0.08794743567705154, 4.314872459332264e-9, 0), (4.314872459332264e-9, -1.5152556542830098e-8, 0.10000001639127731, 0), (0.08794743567705154, -0.047594647854566574, -1.5152556542830098e-8, 0), (-1.7944482564926147, -0.2600720524787903, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (-1.7944483, -0.26007205, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_78"
+        {
+            quatf xformOp:orient = (0.5754776, 0.5754778, 0.4108837, 0.4108837)
+            float3 xformOp:scale = (0.100000024, 0.100000024, 0.100000024)
+            matrix4d xformOp:transform = ( (0.032469842582941055, 0.09458176791667938, 1.468000498938693e-9, 0), (8.328230549636828e-9, -1.2050914044436922e-8, 0.10000001639127731, 0), (0.09458176791667938, -0.03246985003352165, -1.6949028847079717e-8, 0), (-1.9298129081726074, -0.5686735510826111, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (-1.9298129, -0.56867355, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_79"
+        {
+            quatf xformOp:orient = (0.5395816, 0.5395817, 0.45700297, 0.45700285)
+            float3 xformOp:scale = (0.10000002, 0.1, 0.10000002)
+            matrix4d xformOp:transform = ( (0.016459330916404724, 0.09863615036010742, -4.200571890322635e-9, 0), (1.5096372152356707e-8, 1.0686193041564707e-9, 0.10000000149011612, 0), (0.09863615036010742, -0.016459332779049873, -1.527507897947089e-8, 0), (-2.0125374794006348, -0.8953459858894348, 0.31499990820884705, 1) )
+            float3 xformOp:translate = (-2.0125375, -0.895346, 0.3149999)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_8"
+        {
+            quatf xformOp:orient = (0.53958166, 0.53958166, 0.45700288, 0.45700294)
+            float3 xformOp:scale = (0.10000001, 0.099999994, 0.10000001)
+            matrix4d xformOp:transform = ( (0.016459347680211067, 0.09863615036010742, 6.432314680893114e-9, 0), (-6.432314680893114e-9, -4.379280049704448e-9, 0.10000000149011612, 0), (0.09863615036010742, -0.016459347680211067, 6.5165184359727846e-9, 0), (-2.0125374794006348, -0.8953459858894348, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (-2.0125375, -0.895346, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def Xform "Vertex_Empty_9"
+        {
+            quatf xformOp:orient = (0.5754778, 0.57547766, 0.4108836, 0.41088364)
+            float3 xformOp:scale = (0.099999964, 0.09999997, 0.099999964)
+            matrix4d xformOp:transform = ( (0.03246985003352165, 0.09458175301551819, 3.430114636771009e-9, 0), (-3.430114636771009e-9, 1.6695452798032306e-9, 0.09999999403953552, 0), (0.09458175301551819, -0.032469846308231354, 6.567660193468328e-9, 0), (-1.9298131465911865, -0.5686735510826111, -0.9450000524520874, 1) )
+            float3 xformOp:translate = (-1.9298131, -0.56867355, -0.94500005)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Sphere "Sphere_Right_1" (
+        active = true
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Root/GridMaterial/GridMaterial> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        double radius = 0.1
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        float3 xformOp:translate = (0.5, 1.5, -1.5)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+}
+
