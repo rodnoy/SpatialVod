@@ -31,38 +31,96 @@ struct ImmersiveView: View {
         }
     }
     
+//    var body: some View {
+//        RealityView { content, attachments  in
+//            // Add the initial RealityKit content
+//            if let scene = try? await Entity(named: "Immersive", in: realityKitContentBundle), let movieDetail = attachments.entity(for: "z") {
+//                if let wall = scene.findEntity(named: Self.wallKey){
+//                    vm.wallEntity = wall
+//                    for index in 0..<80 {
+//                        let anchorName = "Vertex_Empty_\(index)"
+//                        if let vertexAnchor = wall.findEntity(named: anchorName) {
+//                            vertexAnchor.addChild(generateCardV2(for: scene))
+//                        }
+//                    }
+//                    content.add(wall)
+//                    
+//                    movieDetail.position = [0, 1, -1]
+//                    
+//                    vm.movieDetailEntity = movieDetail
+//                    movieDetail.setVisibility(isVisible: false)
+//                    content.add(movieDetail)
+//                }
+//                let plane = createDoubleSidedPlane()
+//                plane.position = [0 , 1 , -1.5]
+//                vm.planeEntity = plane
+//                content.add(plane)
+//            }
+//        } attachments: {
+//            Attachment(id: "z") {
+//                MovieDetailView(onButtonTap: hidePosterInfo)
+//            }
+//        }
+//        .gesture(tap)
+//    }
+    // refactor body code:
     var body: some View {
         RealityView { content, attachments  in
-            // Add the initial RealityKit content
-            if let scene = try? await Entity(named: "Immersive", in: realityKitContentBundle), let movieDetail = attachments.entity(for: "z") {
-                if let wall = scene.findEntity(named: Self.wallKey){
-                    vm.wallEntity = wall
-                    for index in 0..<80 {
-                        let anchorName = "Vertex_Empty_\(index)"
-                        if let vertexAnchor = wall.findEntity(named: anchorName) {
-                            vertexAnchor.addChild(generateCardV2(for: scene))
-                        }
-                    }
-                    content.add(wall)
-                    
-                    movieDetail.position = [0, 1, -1]
-
-                    vm.movieDetailEntity = movieDetail
-                    movieDetail.setVisibility(isVisible: false)
-                    content.add(movieDetail)
-                }
-                let plane = createDoubleSidedPlane()
-                plane.position = [0 , 1 , -1.5]
-                vm.planeEntity = plane
-                content.add(plane)
+            if let scene = try? await loadScene(), let movieDetail = attachments.entity(for: "z") {
+                addWallAndCards(to: &content, from: scene)
+                configureMovieDetail(movieDetail, in: &content)
+                addPlane(to: &content)
             }
         } attachments: {
+
+            addAttachments()
+        }
+        .gesture(tap)
+    }
+        
+        // Similar functions as before, with slight adjustments for the new context
+        private func loadScene() async throws -> Entity? {
+            return try? await Entity(named: "Immersive", in: realityKitContentBundle)
+        }
+        
+        private func addWallAndCards(to content: inout RealityViewContent, from scene: Entity) {
+            if let wall = scene.findEntity(named: Self.wallKey) {
+                vm.wallEntity = wall
+                for index in 0..<80 {
+                    addCard(to: wall, at: index, from: scene)
+                }
+                content.add(wall)
+            }
+        }
+        
+        private func addCard(to wall: Entity, at index: Int, from scene: Entity) {
+            let anchorName = "Vertex_Empty_\(index)"
+            if let vertexAnchor = wall.findEntity(named: anchorName) {
+                vertexAnchor.addChild(generateCardV2(for: scene))
+            }
+        }
+        
+        private func configureMovieDetail(_ movieDetail: Entity, in content: inout RealityViewContent) {
+            movieDetail.position = [0, 1, -1]
+            vm.movieDetailEntity = movieDetail
+            movieDetail.setVisibility(isVisible: false)
+            content.add(movieDetail)
+        }
+        
+        private func addPlane(to content: inout RealityViewContent) {
+            let plane = createDoubleSidedPlane()
+            plane.position = [0, 1, -1.5]
+            vm.planeEntity = plane
+            content.add(plane)
+        }
+        
+        private func addAttachments() -> some AttachmentContent {
             Attachment(id: "z") {
                 MovieDetailView(onButtonTap: hidePosterInfo)
             }
         }
-        .gesture(tap)
-    }
+
+    // end of refactoring
     func createDoubleSidedPlane() -> Entity {
         let w: Float = 0.1
         let h: Float = 0.3
@@ -91,7 +149,7 @@ struct ImmersiveView: View {
         parentEntity.components.set(HoverEffectComponent())
         return parentEntity
     }
-
+    
     private func generatePlane() -> ModelEntity {
         let planeMesh = MeshResource.generatePlane(width: 0.1, height: 0.5, cornerRadius: 0.2)
         let mat = UnlitMaterial(color: .green)
@@ -186,10 +244,10 @@ struct ImmersiveView: View {
     private func handleTap(on poster: Entity) {
         guard let posterComponent = poster.components[PosterComponent.self] else { return }
         if posterComponent.isEnlarged {
-//            moveBack(poster: poster, with: posterComponent)
-//            vm.currentPoster = nil
-//            vm.posterIsDisplayed = false
-//            posterComponent.isEnlarged.toggle()
+            //            moveBack(poster: poster, with: posterComponent)
+            //            vm.currentPoster = nil
+            //            vm.posterIsDisplayed = false
+            //            posterComponent.isEnlarged.toggle()
             showPosterInfo(poster: poster)
         } else {
             if !vm.posterIsDisplayed{
@@ -200,7 +258,7 @@ struct ImmersiveView: View {
             }
         }
         // Toggling the state
-//        posterComponent.isEnlarged.toggle()
+        //        posterComponent.isEnlarged.toggle()
     }
     private func moveBack(poster: Entity, with posterComponent: PosterComponent) {
         let originalTransform = posterComponent.originalTransform
@@ -231,7 +289,7 @@ struct ImmersiveView: View {
         posterComponent.isEnlarged.toggle()
     }
     private func showPosterInfo(poster: Entity){
-//        poster.setVisibility(isVisible: false)
+        //        poster.setVisibility(isVisible: false)
         vm.currentPoster?.setVisibility(isVisible: false)
         vm.movieDetailEntity?.setVisibility(isVisible: true)
     }
@@ -246,7 +304,7 @@ struct ImmersiveView: View {
     // Этот метод вызывается при нажатии на плоскость.
     func flipPlane(parentEntity: Entity) {
         // Текущий угол поворота вокруг оси Y.
-
+        
         let currentAngle = parentEntity.transform.rotation.angle
         let currentRotation: Float = switch currentAngle{
         case 0: .pi
@@ -258,7 +316,7 @@ struct ImmersiveView: View {
         // Вектор оси Y для поворота.
         let yAxis = SIMD3<Float>(0, 1, 0)
         // Рассчитываем новый угол поворота как текущий плюс 180 градусов (в радианах).
-//        let newRotation = simd_quatf(angle: currentRotation + .pi, axis: yAxis)
+        //        let newRotation = simd_quatf(angle: currentRotation + .pi, axis: yAxis)
         let newRotation = simd_quatf(angle: currentRotation, axis: yAxis)
         // Создаем анимацию с использованием move(to:).
         let animation = Transform(scale: parentEntity.transform.scale,
@@ -291,22 +349,22 @@ extension Sequence {
     public func subtreeFlatten<Node, S: Sequence>(nodeKeyPath: KeyPath<Node, S>) -> some Sequence<Node> where Element == Node, S.Element == Node {
         subtreeFlatten { $0[keyPath: nodeKeyPath] }
     }
-
+    
     public func subtreeFlatten<Node, S: Sequence>(nodes: @escaping (Node) -> S) -> some Sequence<Node> where Element == Node, S.Element == Node {
         AnySequence<Node> {
             var iterator = self.makeIterator()
             var nodeIterator: (any IteratorProtocol<Node>)?
-
+            
             return AnyIterator {
                 if var nodeIterator, let nextChild = nodeIterator.next() {
                     return nextChild
                 }
-
+                
                 if let next = iterator.next() {
                     nodeIterator = nodes(next).subtreeFlatten(nodes: nodes).makeIterator()
                     return next
                 }
-
+                
                 return nil
             }
         }
