@@ -8,14 +8,14 @@
 import Foundation
 import RealityKit
 import Combine
-
+typealias EntitySize = SIMD3<Float>
 extension Entity {
     var modelMesh: MeshResource? {
         return (self.components[ModelComponent.self])?.mesh
     }
 }
 extension Entity {
-    var visualSize: SIMD3<Float> {
+    var visualSize: EntitySize {
         let box = self.visualBounds(relativeTo: nil)
         let width = box.max.x - box.min.x
         let height = box.max.y - box.min.y
@@ -25,7 +25,7 @@ extension Entity {
 }
 //https://stackoverflow.com/a/76845322
 extension ModelEntity {
-    func size() -> SIMD3<Float> {
+    func size() -> EntitySize {
         guard let mesh = self.model?.mesh else {
             return .zero
         }
@@ -37,7 +37,7 @@ extension ModelEntity {
     }
 }
 extension MeshResource {
-    var size: SIMD3<Float> {
+    var size: EntitySize {
         let width = bounds.max.x - bounds.min.x
         let height = bounds.max.y - bounds.min.y
         let depth = bounds.max.z - bounds.min.z
@@ -45,13 +45,20 @@ extension MeshResource {
     }
 }
 extension BoundingBox {
-    var size: SIMD3<Float> {
+    var size: EntitySize {
         let width = max.x - min.x
         let height = max.y - min.y
         let depth = max.z - min.z
         return [width, height, depth]
     }
 }
+
+extension SIMD3 where Scalar == Float {
+    static let xAxis = SIMD3<Float>(1, 0, 0)
+    static let yAxis = SIMD3<Float>(0, 1, 0)
+    static let zAxis = SIMD3<Float>(0, 0, 1)
+}
+
 //A wrapper around iOS Entity/loadAsync(named:in:) and visionOS Entity(named:in:) async that works on both platforms
 // https://gist.github.com/drewolbrich/946eae4af57938155456f5ca947e850a
 extension TextureResource {

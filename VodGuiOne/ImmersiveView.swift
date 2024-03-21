@@ -153,21 +153,6 @@ struct ImmersiveView: View {
         return generateCard()
     }
     
-    private func rotateByPiAroundY(_ image: UIImage) -> UIImage? {
-        UIGraphicsBeginImageContext(image.size)
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
-        
-        // Vertical reflection (around the Y axis)
-        context.translateBy(x: 0, y: image.size.height)
-        context.scaleBy(x: 1.0, y: -1.0)
-        
-        image.draw(at: CGPoint(x: 0, y: 0))
-        let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return rotatedImage
-    }
-    
     private func createUnlitMaterial(from image: UIImage) -> UnlitMaterial{
         let image = try! TextureResource.generate(from: (image.cgImage)!, options: .init(semantic: nil))
         var material = UnlitMaterial()
@@ -226,68 +211,7 @@ extension ImmersiveView{
     private func changeOpacity(for poster: Entity) {
         poster.opacity = 0.3
     }
-    private func createPlane(for poster: Entity, in worldEntity: Entity) {
-        let planeSize = poster.visualSize
-        let planeInitialPosition = poster.position(relativeTo: nil)
-        
-        let faceUpPlaneMesh = MeshResource.generatePlane(width: calculateHypotenuse(planeSize.x, planeSize.z) , height: planeSize.y)
-        let faceDownPlaneMesh = MeshResource.generatePlane(width: calculateHypotenuse(planeSize.x, planeSize.z) , height: planeSize.y)
-        
-//        var posterMaterial = createUnlitMaterial(from: rotateByPiAroundY(UIImage(named: "cover")!)!)
-        let posterMaterial = UnlitMaterial(color: .green)
-        let redMaterial = UnlitMaterial(color: .red)
-        
-        let faceUpPlaneEntity = ModelEntity(mesh: faceUpPlaneMesh, materials: [posterMaterial])
-        let faceDownPlaneEntity = ModelEntity(mesh: faceDownPlaneMesh, materials: [redMaterial])
-        // Rotate 180 degrees around the Y-axis
-        faceDownPlaneEntity.transform.rotation = simd_quatf(angle: .pi, axis: [0, 1, 0])
-        
-        // Parent entity for grouping
-        let parentEntity = ModelEntity()
-        parentEntity.addChild(faceUpPlaneEntity)
-        parentEntity.addChild(faceDownPlaneEntity)
-        
-//        var input = InputTargetComponent(allowedInputTypes: .all)
-//        input.isEnabled = true
-//        parentEntity.components.set(input)
-//        
-//        let collision = CollisionComponent(shapes: [.generateBox(size: planeSize)],
-//                                           mode: .trigger, filter: CollisionFilter(group: .default, mask: .all))
-//        parentEntity.components.set(collision)
-//        parentEntity.components.set(HoverEffectComponent())
-        
-        parentEntity.position = planeInitialPosition
-        Logger.xr.debug("plane rotation before adding poster's one : \(parentEntity.transform.rotation.axis) | \(parentEntity.transform.rotation.angle)")
-        let transform = poster.convert(transform: poster.transform, to: worldEntity)
-        Logger.ui.debug("*********> \(transform.rotation.axis) | \(transform.rotation.angle)")
-        parentEntity.transform.rotation = transform.rotation
-        Logger.xr.debug("plane rotation after : \(parentEntity.transform.rotation.axis) | \(parentEntity.transform.rotation.angle)")
-        // test 2
-        // Создаем кватернион вращения на 180 градусов вокруг оси Y
-        let piRadians = Float.pi // 180 градусов в радианах
-        let yAxis = SIMD3<Float>(0, 1, 0) // Ось Y
-        let rotation180Y = simd_quatf(angle: piRadians, axis: yAxis)
-        // Получаем текущее вращение сущности в виде кватерниона
-        let currentRotation = parentEntity.transform.rotation
-        // Умножаем кватернионы для получения итогового вращения
-        let newRotation = rotation180Y * currentRotation
-
-        // Применяем новое вращение к сущности
-        parentEntity.transform.rotation = newRotation
-//        let posterWorldTransform = poster.transformMatrix(relativeTo: nil)
-//        let newPosition = posterWorldTransform.transform
-        worldEntity.addChild(parentEntity)
- 
-    }
-    func sumOfSquares<T: FloatingPoint>(_ elements: T...) -> T{
-        elements.reduce(0) { partialResult, element in
-            return partialResult + element * element
-        }
-    }
-    func calculateHypotenuse<T: FloatingPoint>(_ a: T, _ b: T) -> T {
-//        return (a * a + b * b).squareRoot()
-        sumOfSquares(a, b).squareRoot()
-    }
+    
     
     private func moveBack(poster: Entity, with posterComponent: PosterComponent) {
         let originalTransform = posterComponent.originalTransform
@@ -330,7 +254,6 @@ extension ImmersiveView{
         vm.currentPoster = nil
         vm.posterIsDisplayed = false
     }
-    // Этот метод вызывается при нажатии на плоскость.
     func flipPlane(parentEntity: Entity) {
         // Текущий угол поворота вокруг оси Y.
         
@@ -354,6 +277,43 @@ extension ImmersiveView{
         
         // Применяем анимацию к родительской сущности.
         parentEntity.move(to: animation, relativeTo: parentEntity.parent, duration: 0.5, timingFunction: .easeInOut)
+    }
+    
+    // should create an extension
+    private func rotateByPiAroundY(_ image: UIImage) -> UIImage? {
+        UIGraphicsBeginImageContext(image.size)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        
+        // Vertical reflection (around the Y axis)
+        context.translateBy(x: 0, y: image.size.height)
+        context.scaleBy(x: 1.0, y: -1.0)
+        
+        image.draw(at: CGPoint(x: 0, y: 0))
+        let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return rotatedImage
+    }
+    private func rotateByPiAroundXY(_ image: UIImage) -> UIImage? {
+        UIGraphicsBeginImageContext(image.size)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        context.translateBy(x: image.size.width / 2, y: image.size.height / 2)
+        context.rotate(by: .pi) // Поворот на 180 градусов
+        context.translateBy(x: -image.size.width / 2, y: -image.size.height / 2)
+
+        image.draw(at: CGPoint(x: 0, y: 0))
+        let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return rotatedImage
+    }
+    private func sumOfSquares<T: FloatingPoint>(_ elements: T...) -> T{
+        elements.reduce(0) { partialResult, element in
+            return partialResult + element * element
+        }
+    }
+    private func calculateHypotenuse<T: FloatingPoint>(_ a: T, _ b: T) -> T {
+        sumOfSquares(a, b).squareRoot()
     }
 }
 
@@ -386,7 +346,7 @@ extension ImmersiveView{
         movieDetail.setVisibility(isVisible: false)
         content.addChild(movieDetail)
     }
-    
+    // this is demo plane to try it out
     private func addPlane(to content: Entity) {
         let plane = createDoubleSidedPlane()
         plane.position = [0 , 1 , -1.5]
@@ -397,6 +357,59 @@ extension ImmersiveView{
         Attachment(id: "z") {
             MovieDetailView(onButtonTap: hidePosterInfo)
         }
+    }
+    
+    private func createPlane(for poster: Entity, in worldEntity: Entity) {
+        let planeSize = poster.visualSize
+        
+        
+        let faceUpPlaneMesh = MeshResource.generatePlane(width: calculateHypotenuse(planeSize.x, planeSize.z) , height: planeSize.y)
+        let faceDownPlaneMesh = MeshResource.generatePlane(width: calculateHypotenuse(planeSize.x, planeSize.z) , height: planeSize.y)
+        let posterMaterial = createUnlitMaterial(from: rotateByPiAroundXY(UIImage(named: "cover")!)!)
+        
+        let redMaterial = UnlitMaterial(color: .red)
+        
+        let faceUpPlaneEntity = ModelEntity(mesh: faceUpPlaneMesh, materials: [posterMaterial])
+        let faceDownPlaneEntity = ModelEntity(mesh: faceDownPlaneMesh, materials: [redMaterial])
+        // Rotate 180 degrees around the Y-axis
+        faceDownPlaneEntity.transform.rotation = simd_quatf(angle: .pi, axis: .yAxis)
+        
+        // Parent entity for grouping
+        let parentEntity = ModelEntity()
+        parentEntity.addChild(faceUpPlaneEntity)
+        parentEntity.addChild(faceDownPlaneEntity)
+
+        configurePlanesPositionAndRotation(parentEntity, basedOn: poster, in: worldEntity)
+        addHapticComponentsTo(parentEntity, size: planeSize)
+    }
+    private func configurePlanesPositionAndRotation(_ entity: ModelEntity,
+                                                    basedOn poster: Entity,
+                                                    in worldEntity: Entity){
+        let planeInitialPosition = poster.position(relativeTo: nil)
+        entity.position = planeInitialPosition
+        let transform = poster.convert(transform: poster.transform, to: worldEntity)
+        entity.transform.rotation = transform.rotation
+        // Create a 180 degree rotation quaternion around the Y axis
+
+        let rotation180Y = simd_quatf(angle: Float.pi, axis: .yAxis)
+        // Obtain the current rotation of the entity as a quaternion
+        let currentRotation = entity.transform.rotation
+        // Multiply the quaternions to obtain the final rotation
+        let newRotation = rotation180Y * currentRotation
+
+        // Apply the new rotation to the entity
+        entity.transform.rotation = newRotation
+        worldEntity.addChild(entity)
+    }
+    private func addHapticComponentsTo(_ entity: ModelEntity, size: EntitySize){
+        var input = InputTargetComponent(allowedInputTypes: .all)
+        input.isEnabled = true
+        entity.components.set(input)
+
+        let collision = CollisionComponent(shapes: [.generateBox(size: size)],
+                                           mode: .trigger, filter: CollisionFilter(group: .default, mask: .all))
+        entity.components.set(collision)
+        entity.components.set(HoverEffectComponent())
     }
 }
 
