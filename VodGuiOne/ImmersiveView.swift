@@ -27,6 +27,9 @@ struct ImmersiveView: View {
                 //handle flip card
                 flipPlane(parentEntity: value.entity)
             }
+            if value.entity == vm.planePoster {//vm.planePosterEntity {
+                handleTap(on: vm.currentPoster!)
+            }
         }
     }
     
@@ -193,23 +196,53 @@ extension ImmersiveView{
     //        // Toggling the state
     //        posterComponent.isEnlarged.toggle()
     //    }
+    
     private func handleTap(on poster: Entity) {
         guard let posterComponent = poster.components[PosterComponent.self] else { return }
         if posterComponent.isEnlarged {
-            showPosterInfo(poster: poster)
+//            showPosterInfo(poster: poster)
+            if let posterPlane = vm.planePoster {
+                moveBack(poster: posterPlane, with: posterPlane.components[PosterComponent.self]!)
+                posterComponent.isEnlarged.toggle()
+                changeOpacity(for: poster, with: 1)
+                vm.posterIsDisplayed = false
+//                vm.planePosterEntity = nil
+                vm.globalEntity.removeChild(posterPlane)
+                vm.currentPoster = nil
+            }
+            
         } else {
             if !vm.posterIsDisplayed{
                 vm.currentPoster = poster
-//                moveIn(poster: poster, with: posterComponent)
-                changeOpacity(for: poster)
+                
+                changeOpacity(for: poster, with: 0.3)
                 createPlane(for: poster, in: vm.globalEntity)
+                if let posterPlane = vm.planePoster {
+                    moveIn(poster: posterPlane, with: posterPlane.components[PosterComponent.self]!)
+                }
+                
                 vm.posterIsDisplayed = true
                 posterComponent.isEnlarged.toggle()
             }
         }
     }
-    private func changeOpacity(for poster: Entity) {
-        poster.opacity = 0.3
+//    private func handleTap(on poster: Entity) {
+//        guard let posterComponent = poster.components[PosterComponent.self] else { return }
+//        if posterComponent.isEnlarged {
+//            showPosterInfo(poster: poster)
+//        } else {
+//            if !vm.posterIsDisplayed{
+//                vm.currentPoster = poster
+////                moveIn(poster: poster, with: posterComponent)
+//                changeOpacity(for: poster)
+//                createPlane(for: poster, in: vm.globalEntity)
+//                vm.posterIsDisplayed = true
+//                posterComponent.isEnlarged.toggle()
+//            }
+//        }
+//    }
+    private func changeOpacity(for poster: Entity, with value: Float) {
+        poster.opacity = value
     }
     
     
@@ -222,7 +255,26 @@ extension ImmersiveView{
         posterComponent.originalTransform = poster.transform
         
         let targetPosition: SIMD3<Float> = [ 0, 1, -1]
-        let targetScale = poster.scale * 0.1 // 10%
+//        let targetScale = poster.scale * 0.1 // 10%
+        let targetScale = poster.scale * 1.3 // 10%
+        // Create a new transformation for animation
+        var newTransform = poster.transform
+        newTransform.translation = targetPosition
+        newTransform.scale = targetScale
+        
+        // Animation of moving and scaling
+        poster.move(to: newTransform,
+                    relativeTo: nil,
+                    duration: 0.5,
+                    timingFunction: .easeInOut)
+    }
+    private func moveIn(poster: Entity) {
+        guard let posterComponent = poster.components[PosterComponent.self] else { return }
+        // Retain the original position and size
+        posterComponent.originalTransform = poster.transform
+        
+        let targetPosition: SIMD3<Float> = [ 0, 1, -1]
+        let targetScale = poster.scale * 0.3 // 10%
         
         // Create a new transformation for animation
         var newTransform = poster.transform
@@ -336,6 +388,7 @@ extension ImmersiveView{
     private func addCard(to wall: Entity, at index: Int, from scene: Entity) {
         let anchorName = "Vertex_Empty_\(index)"
         if let vertexAnchor = wall.findEntity(named: anchorName) {
+            print("*********** \(vertexAnchor.transform.rotation)")
             vertexAnchor.addChild(generateCardV2(for: scene))
         }
     }
@@ -376,11 +429,14 @@ extension ImmersiveView{
         
         // Parent entity for grouping
         let parentEntity = ModelEntity()
+        parentEntity.name = vm.planePosterName
         parentEntity.addChild(faceUpPlaneEntity)
         parentEntity.addChild(faceDownPlaneEntity)
 
         configurePlanesPositionAndRotation(parentEntity, basedOn: poster, in: worldEntity)
         addHapticComponentsTo(parentEntity, size: planeSize)
+
+        parentEntity.components[PosterComponent.self] = PosterComponent()
     }
     private func configurePlanesPositionAndRotation(_ entity: ModelEntity,
                                                     basedOn poster: Entity,
@@ -400,6 +456,7 @@ extension ImmersiveView{
         // Apply the new rotation to the entity
         entity.transform.rotation = newRotation
         worldEntity.addChild(entity)
+//        vm.planePosterEntity = entity
     }
     private func addHapticComponentsTo(_ entity: ModelEntity, size: EntitySize){
         var input = InputTargetComponent(allowedInputTypes: .all)
@@ -478,12 +535,20 @@ extension ImmersiveView{
 extension ImmersiveView {
     @Observable
     class ViewModel{
+        let planePosterName = "posterClone"
         var posterIsDisplayed: Bool = false
         var globalEntity: Entity = Entity()
         var currentPoster: Entity? = nil
         var wallEntity: Entity?
         var movieDetailEntity: Entity?
         var planeEntity: Entity?
+        var planePosterEntity: Entity?
+        var planePoster: Entity? {
+            guard let plane = globalEntity.findEntity(named: planePosterName) else{
+                return nil
+            }
+            return plane
+        }
     }
 }
 

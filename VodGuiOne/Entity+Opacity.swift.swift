@@ -60,4 +60,6 @@ extension Entity {
         }
     }
     
+//    func relocate(){}
+//    func shift(){}
 }
